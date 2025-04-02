@@ -38,7 +38,7 @@ def addEvent(creds, duration, description):
       }
   
     service = build("calendar", "v3", credentials=creds)
-    event = service.events().insert(calendarId="7aa858b51b17b4108bf4cd8f65e885f38b309d49ac50877101e19748fb3d293d@group.calendar.google.com", body=event).execute()
+    event = service.events().insert(calendarId="primary", body=event).execute()
     print(f"Event created: %s" % {event.get('htmlLink')})
 
 def main():
@@ -78,7 +78,7 @@ def commitHours(creds):
     timeStart = str(today) + "T00:00:00Z"
     timeEnd = str(today) + "T23:59:59Z"
     print("Getting todays productive hours")
-    events_result = (service.events().list(calendarId="7aa858b51b17b4108bf4cd8f65e885f38b309d49ac50877101e19748fb3d293d@group.calendar.google.com", timeMin=timeStart, timeMax=timeEnd, singleEvents=True, orderBy="startTime").execute())
+    events_result = (service.events().list(calendarId="primary", timeMin=timeStart, timeMax=timeEnd, singleEvents=True, orderBy="startTime").execute())
     events = events_result.get("items", [])
 
     if not events:
